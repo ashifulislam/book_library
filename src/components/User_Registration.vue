@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-4">
-    <h1>User_Registration</h1>
+    <h2>User_Registration</h2>
     <body class="text-center">
     <form action="#" @submit.prevent="registration" class="form-signin">
       <div>
-        <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+        <h3 class="h3 mb-3 font-weight-normal">Registration</h3>
         <div v-if="success" class="alert alert-success">
         {{responseMessage}}
         </div>
@@ -17,12 +17,11 @@
         <input v-model="registrationData.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
         <input v-model="registrationData.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <label for="password_confirmation" class="sr-only">Password</label>
+        <input v-model="registrationData.password_confirmation" type="password" id="password_confirmation" class="form-control" placeholder="Confirm pass" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <p>Already Registered? <a href="#"><router-link to="/user_login" >Login</router-link></a></p>
+
       </div>
 
     </form>
@@ -39,15 +38,16 @@
 import axios from "axios";
 
 export default {
-  name: 'Admin_Login',
+  name: 'User_Registration',
   data()
   {
     return {
-      url:"http://localhost/book_library_rest_api/public/api/user_registration",
+      url:"http://localhost/book_library_rest_api/public/api/register",
       registrationData: {
         name:'',
         email:'',
         password:'',
+        password_confirmation:''
       },
       responseMessage:'',
       success:false,
@@ -60,14 +60,16 @@ export default {
     registration()
     {
       axios.post(this.url,this.registrationData).then((response)=>{
-        if(response.status===200)
+        if(response.status === 200)
         {
-          window.location.href = "http://localhost:8080/app"
+          alert("Successfully registered");
+          window.location.href = "http://localhost:8080/user_login"
+        }
+        else if(response.status === 300) {
+          alert("invalid registered");
 
         }
-        else{
-          alert('Invalid credentials');
-        }
+
       }).catch(e=>{
         alert(e);
       })

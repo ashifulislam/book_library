@@ -1,31 +1,32 @@
 <template>
 
   <div class="my-form">
+    <h3 style="text-align: center;">Manage Author</h3>
 <!--    <a class="nav-item"><router-link to="/admin_login" class="nav-link">Admin_Login</router-link></a>-->
-    <form  class="ui form">
+    <form  @submit.prevent="onFormSubmit"  class="ui form">
       <div class="fields">
         <div class="four wide field">
         <label>First Name</label>
-          <input type="text" name="first_name" placeholder="Enter your first name"
+          <input type="text" name="first_name" placeholder="Enter first name"
           @change="handleChange" :value="form.first_name"/>
         </div>
         <div class="four wide field">
           <label>Last Name</label>
-          <input type="text" name="last_name" placeholder="Enter your last name"
+          <input type="text" name="last_name" placeholder="Enter last name"
                  @change="handleChange" :value="form.last_name"/>
         </div>
         <div class="six wide field">
           <label>E-mail</label>
-          <input type="email" name="email" placeholder="Enter your email"
+          <input type="email" name="email" placeholder="Enter email"
                  @change="handleChange" :value="form.email"/>
         </div>
         <div class="six wide field">
           <label>Password</label>
-          <input type="password" name="password" placeholder="Enter your email"
+          <input type="password" name="password" placeholder="Enter password"
                  @change="handleChange" :value="form.password"/>
         </div>
         <div class="two wide field">
-         <button class="ui primary button submit-button" @click="onFormSubmit">Save</button>
+         <button class="ui primary button submit-button">Save</button>
         </div>
       </div>
     </form>
@@ -78,6 +79,10 @@ export default {
         alert("Enter email");
         return false;
       }
+      if (document.getElementsByName("password")[0].value === "") {
+        alert("Enter password");
+        return false;
+      }
       return true;
     },
     clearFormFields() {
@@ -85,6 +90,7 @@ export default {
       this.form.first_name = "";
       this.form.last_name = "";
       this.form.email = "";
+      this.form.password = "";
       this.form.isEdit = false;
       // clear form fields
       document.querySelector(".form").reset();

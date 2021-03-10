@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-4">
-    <h2>Admin_Login</h2>
+    <h2>User_Login</h2>
     <body class="text-center">
     <form action="#" @submit.prevent="login" class="form-signin">
       <div>
-        <h3 class="h3 mb-3 font-weight-normal">Login</h3>
+        <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
         <div v-if="success" class="alert alert-success">
         {{responseMessage}}
         </div>
@@ -15,8 +15,8 @@
         <input v-model="loginData.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
         <input v-model="loginData.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <p>Not Registered? <a href="#"><router-link to="/user_registration" >Register</router-link></a></p>
       </div>
 
     </form>
@@ -33,11 +33,11 @@
 import axios from "axios";
 
 export default {
-  name: 'Admin_Login',
+  name: 'User_Login',
   data()
   {
     return {
-      url:"http://localhost/book_library_rest_api/public/api/login",
+      url:"http://localhost/book_library_rest_api/public/api/user_login",
       loginData: {
         email:'',
         password:'',
@@ -53,12 +53,11 @@ export default {
     login()
     {
       axios.post(this.url,this.loginData).then((response)=>{
-        // alert();
 
         if(response.status===200)
         {
-          localStorage.setItem("_token", response.data['success']);
-          window.location.href = "http://localhost:8080/app"
+          localStorage.setItem("_token_user", response.data['success']);
+          window.location.href = "http://localhost:8080/show_favourite_book"
 
         }
         else{

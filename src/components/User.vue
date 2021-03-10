@@ -1,10 +1,12 @@
 <template>
   <div class="customer-list">
-    <a class="nav-item"><router-link to="/user_login" class="nav-link">Login</router-link></a>
-    <a class="nav-item"><router-link to="/user_registration" class="nav-link">Registration</router-link></a>
+    <a style="padding-left:7px;" ><router-link to="/user_login" >Login</router-link></a>
+    <br>
+    <a style="padding-left:7px;"><router-link to="/user_registration" >Registration</router-link></a>
 
     <div class="data">
-    <table class="ui celled table">
+      <h2 style="text-align: center">Show Books</h2>
+    <table style="padding-left:7px;" class="ui celled table">
      <thead>
      <tr>
        <th style="width:50px; text-align: center">
@@ -32,8 +34,8 @@
         <td>
           {{book.description}}
         </td>
-        <td>
-          <button class="mini ui blue button" @click="onEdit">AddToFavourite</button>
+        <td v-if="ifUnauthenticated">
+          <button class="mini ui blue button" @click="addToFavourite(book.id)">AddToFavourite</button>
         </td>
       </tr>
       </tbody>
@@ -50,7 +52,10 @@ export default {
   data()
   {
     return {
+      ifUnauthenticated:false,
+
       url:"http://localhost/book_library_rest_api/public/api/books",
+      url_favourite_book:"http://localhost/book_library_rest_api/public/api/add_book_favourite",
       books:[],
     };
   },
@@ -61,10 +66,42 @@ export default {
         this.books = data.data;
       })
     },
+    addToFavourite(id)
+    {
+      axios.post(this.url_favourite_book,{
+          id: id
+      },{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token_user")}`
+        }
+      }).then((response)=>{
+       if(response.status===200)
+       {
+         alert('already added please add new one');
+       }
+       else{
+         alert('added successfully');
+
+       }
+      }).catch(e=>{
+        alert(e);
+      });
+    }
   },
   created() {
     this.getBook();
+    if(localStorage.getItem("_token_user"))
+    {
+      this.ifUnauthenticated = true;
+
+    }else{
+      this.ifUnauthenticated = false;
+
+    }
   }
+
+
+
 
 }
 </script>

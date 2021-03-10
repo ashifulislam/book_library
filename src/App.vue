@@ -34,7 +34,6 @@ export default {
   },
   data()
   {
-
    return {
      url:"http://localhost/book_library_rest_api/public/api/authors",
      form:{
@@ -64,7 +63,12 @@ export default {
     deleteAuthor(id)
     {
       this.loader = true;
-      axios.delete(`${this.url}/${id}`).then(()=>{
+      axios.delete(`${this.url}/${id}`,{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token")}`
+        }
+      }).then(()=>{
+
         this.getAuthor();
       }).catch(e=>{
         alert(e);
@@ -80,7 +84,16 @@ export default {
         last_name:data.last_name,
         email:data.email,
         password:data.password,
-      }).then(()=>{
+      },{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token")}`
+        }
+      }).then((response)=>{
+        if(response.status === 202)
+        {
+          alert('Duplicate email entry');
+        }
+
         this.getAuthor();
       }).catch(e=>{
         alert(e);
@@ -95,7 +108,15 @@ export default {
         last_name:data.last_name,
         email:data.email,
         password:data.password,
-      }).then(()=>{
+      },{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token")}`
+        }
+      }).then((response)=>{
+        if(response.status === 202)
+        {
+          alert('Duplicate email entry');
+        }
         this.getAuthor();
 
       }).catch(e=>{

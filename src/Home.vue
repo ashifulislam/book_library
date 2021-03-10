@@ -4,13 +4,14 @@
       <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item"><router-link to="/" class="nav-link">Home</router-link></li>
-            <li class="nav-item"><router-link to="/author_login" class="nav-link">Author</router-link></li>
-            <li class="nav-item"><router-link to="/admin_login" class="nav-link">Admin</router-link></li>
-            <li class="nav-item"><router-link to="/user" class="nav-link">User</router-link></li>
+            <li class="nav-item"><router-link to="/" class="nav-link"><b>HOME</b></router-link></li>
+            <li class="nav-item"><router-link to="/author_login" class="nav-link"><b>AUTHOR</b></router-link></li>
+            <li class="nav-item"><router-link to="/admin_login" class="nav-link"><b>ADMIN</b></router-link></li>
+            <li class="nav-item"><router-link to="/user" class="nav-link"><b>USER</b></router-link></li>
           </ul>
         </div>
       </nav>
+      <h2 style="text-align: center; margin-top: 20px">Welcome to the book library portal</h2>
       <router-view class="view"></router-view>
     </div>
     <HelloWorld/>

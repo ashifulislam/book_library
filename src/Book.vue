@@ -48,7 +48,11 @@ export default {
     getBook()
     {
       this.loader = false;
-      axios.get(this.url).then(data=>{
+      axios.get(this.url,{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token_book")}`
+        }
+      }).then(data=>{
         this.books = data.data;
         this.loader = false;
       })
@@ -56,7 +60,15 @@ export default {
     deleteBook(id)
     {
       this.loader = true;
-      axios.delete(`${this.url}/${id}`).then(()=>{
+      axios.delete(`${this.url}/${id}`,{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token_book")}`
+        }
+      }).then((response)=>{
+        if(response.status===202)
+        {
+          alert('You are an unauthenticated');
+        }
         this.getBook();
       }).catch(e=>{
         alert(e);
@@ -70,7 +82,15 @@ export default {
       axios.post(this.url,{
         name:data.name,
         description:data.description,
-      }).then(()=>{
+      },{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token_book")}`
+        }
+      }).then((response)=>{
+        if(response.status===202)
+        {
+          alert('You are an unauthenticated');
+        }
         this.getBook();
       }).catch(e=>{
         alert(e);
@@ -84,7 +104,15 @@ export default {
         name:data.name,
         description:data.description,
 
-      }).then(()=>{
+      },{
+        headers: {
+          'Authorization': `Bearer  ${localStorage.getItem("_token_book")}`
+        }
+      }).then((response)=>{
+        if(response.status===202)
+        {
+          alert('You are an unauthenticated');
+        }
         this.getBook();
 
       }).catch(e=>{

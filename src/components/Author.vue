@@ -14,9 +14,8 @@
         {{author.email}}
       </td>
       <td>
-        {{author.password}}
-      </td>
-      <td>
+
+
         <button class="mini ui blue button" @click="onEdit">Edit</button>
         <button class="mini ui red button" @click="onDelete" >Delete</button>
       </td>
@@ -26,12 +25,14 @@
 <script>
 export default {
   name:"author",
+
   props:{
     author:{
       type: Object
     }
   },
   methods:{
+
   onDelete()
   {
 
@@ -42,7 +43,9 @@ export default {
       this.$emit("onEdit",this.author);
 
     }
-  }
+  },
+
+
 }
 </script>
 

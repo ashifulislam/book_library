@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-4">
-    <h1>Author_Login</h1>
+    <h2>Author_Login</h2>
     <body class="text-center">
     <form action="#" @submit.prevent="login" class="form-signin">
       <div>
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h3 class="h3 mb-3 font-weight-normal">Login</h3>
         <div v-if="success" class="alert alert-success">
         {{responseMessage}}
         </div>
@@ -15,12 +15,7 @@
         <input v-model="loginData.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
         <input v-model="loginData.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
       </div>
 
     </form>
@@ -59,6 +54,7 @@ export default {
       axios.post(this.url,this.loginData).then((response)=>{
         if(response.status===200)
         {
+          localStorage.setItem("_token_book", response.data['success']);
           window.location.href = "http://localhost:8080/book"
 
         }

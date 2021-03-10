@@ -18,9 +18,6 @@
          Email
        </th>
        <th>
-         Password
-       </th>
-       <th>
          Action
        </th>
      </tr>

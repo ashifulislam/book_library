@@ -10,7 +10,7 @@
     <td>
       {{book.description}}
     </td>
-    <td>
+    <td v-if="ifUnauthenticated">
       <button class="mini ui blue button" @click="onEdit">Edit</button>
       <button class="mini ui red button" @click="onDelete" >Delete</button>
     </td>
@@ -20,6 +20,12 @@
 <script>
 export default {
   name:"book",
+  data(){
+    return {
+      ifUnauthenticated:false
+    }
+  },
+
   props:{
     book:{
       type: Object
@@ -34,6 +40,17 @@ export default {
     onEdit()
     {
       this.$emit("onEdit",this.book);
+
+    }
+  },
+  created() {
+
+    if(localStorage.getItem("_token_book"))
+    {
+      this.ifUnauthenticated = true;
+
+    }else{
+      this.ifUnauthenticated = false;
 
     }
   }

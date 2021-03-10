@@ -2,7 +2,7 @@
 
   <div class="my-form">
 <!--    <a class="nav-item"><router-link to="/admin_login" class="nav-link">Admin_Login</router-link></a>-->
-    <form  class="ui form">
+    <form @submit.prevent="onFormSubmitBook"  class="ui form">
       <div class="fields">
         <div class="four wide field">
         <label>Book Name</label>
@@ -15,8 +15,8 @@
                  @change="handleChange" :value="form_book.description"/>
         </div>
 
-        <div class="two wide field">
-         <button class="ui primary button submit-button" @click="onFormSubmitBook">Save</button>
+        <div class="two wide field" v-if="ifUnauthenticated">
+         <button class="ui primary button submit-button" >Save</button>
         </div>
       </div>
     </form>
@@ -26,6 +26,11 @@
 <script>
 export default {
   name:"BookForm",
+  data(){
+    return {
+      ifUnauthenticated:false
+    }
+  },
   props:{
     form_book:{
       type:Object
@@ -75,6 +80,18 @@ export default {
       // clear form fields
       document.querySelector(".form").reset();
     }
+
+  },
+
+    created() {
+      if(localStorage.getItem("_token_book"))
+      {
+        this.ifUnauthenticated = true;
+
+      }else{
+        this.ifUnauthenticated = false;
+
+      }
 
   }
 }
